@@ -1,0 +1,307 @@
+{
+  "schema_version": "skillbench_ncf.minimax_batch02_evidence_v2_revisions.v1",
+  "excluded_skills": {},
+  "documented_route_aliases": {
+    "excel-automation": "The local Excel skill explicitly routes these operations through Google Sheets tools.",
+    "googleads-automation": "The local Google Ads skill explicitly documents Google Analytics operations.",
+    "googlebigquery-automation": "The local BigQuery skill explicitly routes these operations through Metabase tools."
+  },
+  "manual_review_notes": {
+    "google-maps-automation": "The first Judge incorrectly treated a natural-language venue description as a documented place-query field; the revision now supplies the required places/{place_id} resource name.",
+    "googlebigquery-automation": "The revision pair Judge's Chinese explanation swaps train and dev in prose, although its structured role-correct field is true. Direct operation-ID comparison confirms train is SQL query and dev is metadata retrieval."
+  },
+  "revisions": {
+    "docker-hub-automation": {
+      "reason": "Remove a phantom company slot and record the email value actually present in the request.",
+      "train": {
+        "task_en": "Create a new Docker Hub organization named cloudnative-registry for our microservices division.",
+        "task_zh": "为我们的微服务部门创建一个名为 cloudnative-registry 的新 Docker Hub 组织。",
+        "synthetic_slots": [
+          {
+            "field": "orgname",
+            "value": "cloudnative-registry",
+            "basis": "schema_conformant"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "List the teams in our Docker Hub organization, invite alice@example.com, and create a repository webhook for image-push notifications.",
+        "task_zh": "列出我们 Docker Hub 组织中的团队，邀请 alice@example.com，并为镜像推送通知创建一个仓库 Webhook。",
+        "synthetic_slots": [
+          {
+            "field": "email",
+            "value": "alice@example.com",
+            "basis": "schema_conformant"
+          }
+        ]
+      }
+    },
+    "dynamics365-automation": {
+      "reason": "Remove the unsupported 'active partner' attribute and make the case origin unambiguous.",
+      "train": {
+        "task_en": "Create a Dynamics 365 account for Acme Corporation with annual revenue of 5000000.",
+        "task_zh": "在 Dynamics 365 中为 Acme Corporation 创建一个年收入为 5000000 的客户账户。",
+        "synthetic_slots": [
+          {
+            "field": "name",
+            "value": "Acme Corporation",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "revenue",
+            "value": "5000000",
+            "basis": "schema_conformant"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "Create a high-priority Dynamics 365 support case titled Login issue and record email as its origin.",
+        "task_zh": "在 Dynamics 365 中创建一个标题为“Login issue”的高优先级支持工单，并将来源记录为电子邮件。",
+        "synthetic_slots": [
+          {
+            "field": "title",
+            "value": "Login issue",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "prioritycode",
+            "value": "3",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "caseorigincode",
+            "value": "2",
+            "basis": "explicit_example"
+          }
+        ]
+      }
+    },
+    "excel-automation": {
+      "reason": "Align declared slots with values that actually appear in each request.",
+      "train": {
+        "task_en": "In the Contacts sheet, upsert rows by matching the Email column so phone numbers and statuses are synchronized.",
+        "task_zh": "在 Contacts 工作表中按 Email 列匹配并更新或追加行，以同步电话号码和状态。",
+        "synthetic_slots": [
+          {
+            "field": "sheetName",
+            "value": "Contacts",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "keyColumn",
+            "value": "Email",
+            "basis": "explicit_example"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "Add a new worksheet tab named Q4 Report to the existing monthly sales spreadsheet.",
+        "task_zh": "在现有的月度销售电子表格中添加一个名为 Q4 Report 的新工作表标签页。",
+        "synthetic_slots": [
+          {
+            "field": "title",
+            "value": "Q4 Report",
+            "basis": "explicit_example"
+          }
+        ]
+      }
+    },
+    "gong-automation": {
+      "reason": "Replace the inconsistent phrase 'this year' with the exact documented example dates.",
+      "train": {
+        "task_en": "List all Gong calls from February 3, 2025 through February 10, 2025.",
+        "task_zh": "列出 2025 年 2 月 3 日至 2025 年 2 月 10 日期间的所有 Gong 通话。",
+        "synthetic_slots": [
+          {
+            "field": "fromDateTime",
+            "value": "2025-02-03T00:00:00Z",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "toDateTime",
+            "value": "2025-02-10T00:00:00Z",
+            "basis": "explicit_example"
+          }
+        ]
+      }
+    },
+    "google-admin-automation": {
+      "reason": "Make the user-creation request executable with every required field and normalize all declared slots.",
+      "train": {
+        "task_en": "List Google Workspace users in the Engineering organization, sorted by family name in ascending order.",
+        "task_zh": "列出 Google Workspace 中 Engineering 组织的用户，并按姓氏升序排列。",
+        "synthetic_slots": [
+          {
+            "field": "query",
+            "value": "orgName=Engineering",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "order by",
+            "value": "familyName",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "sort order",
+            "value": "ASCENDING",
+            "basis": "schema_conformant"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "Create a Google Workspace user named John Doe with email john.doe@company.com and temporary password TempPass!2026.",
+        "task_zh": "创建一个名为 John Doe、邮箱为 john.doe@company.com、临时密码为 TempPass!2026 的 Google Workspace 用户。",
+        "synthetic_slots": [
+          {
+            "field": "primary email",
+            "value": "john.doe@company.com",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "given name",
+            "value": "John",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "family name",
+            "value": "Doe",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "password",
+            "value": "TempPass!2026",
+            "basis": "schema_conformant"
+          }
+        ]
+      }
+    },
+    "google-maps-automation": {
+      "reason": "GET_PLACE_DETAILS requires a places/{place_id} resource name; a natural-language venue description is not that input.",
+      "train": {
+        "task_en": "Get the opening hours and reviews for Google Maps resource places/ChIJN1t_tDeuEmsRUsoyG83frY4.",
+        "task_zh": "获取 Google Maps 资源 places/ChIJN1t_tDeuEmsRUsoyG83frY4 的营业时间和评论。",
+        "synthetic_slots": [
+          {
+            "field": "resource name",
+            "value": "places/ChIJN1t_tDeuEmsRUsoyG83frY4",
+            "basis": "schema_conformant"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "Find restaurants within 500 meters of latitude 40.7484 and longitude -73.9857.",
+        "task_zh": "查找纬度 40.7484、经度 -73.9857 周围 500 米以内的餐厅。",
+        "synthetic_slots": [
+          {
+            "field": "latitude",
+            "value": "40.7484",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "longitude",
+            "value": "-73.9857",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "radius",
+            "value": "500",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "includedTypes",
+            "value": "[\"restaurant\"]",
+            "basis": "explicit_example"
+          }
+        ]
+      }
+    },
+    "google-search-console-automation": {
+      "reason": "Replace relative or missing URL/date inputs with explicit schema-conformant values.",
+      "train": {
+        "task_en": "For https://www.example.com/, report clicks and impressions from 2025-01-01 through 2025-01-31, grouped by page.",
+        "task_zh": "针对 https://www.example.com/，报告 2025-01-01 至 2025-01-31 的点击次数和展示次数，并按页面分组。",
+        "synthetic_slots": [
+          {
+            "field": "site url",
+            "value": "https://www.example.com/",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "start date",
+            "value": "2025-01-01",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "end date",
+            "value": "2025-01-31",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "dimensions",
+            "value": "[\"page\"]",
+            "basis": "schema_conformant"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "Inspect https://www.example.com/contact under property https://www.example.com/ and report its Google indexing status.",
+        "task_zh": "在资源 https://www.example.com/ 下检查 https://www.example.com/contact，并报告其 Google 索引状态。",
+        "synthetic_slots": [
+          {
+            "field": "inspection url",
+            "value": "https://www.example.com/contact",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "site url",
+            "value": "https://www.example.com/",
+            "basis": "explicit_example"
+          }
+        ]
+      }
+    },
+    "googleads-automation": {
+      "reason": "Avoid inventing dimension and metric names when the local card omits the full schema.",
+      "train": {
+        "task_en": "Check whether my selected Google Analytics dimension and metric are compatible before I run the report.",
+        "task_zh": "在运行报告之前，检查我选择的 Google Analytics 维度和指标是否兼容。",
+        "synthetic_slots": []
+      }
+    },
+    "googlebigquery-automation": {
+      "reason": "Use an explicit integer database ID and classify the SQL query as schema-conformant rather than copied verbatim.",
+      "train": {
+        "task_en": "Run SELECT * FROM users LIMIT 10 as a native SQL query against database ID 1.",
+        "task_zh": "在数据库 ID 1 上以原生 SQL 查询方式运行 SELECT * FROM users LIMIT 10。",
+        "synthetic_slots": [
+          {
+            "field": "database",
+            "value": "1",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "type",
+            "value": "native",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "native.query",
+            "value": "SELECT * FROM users LIMIT 10",
+            "basis": "schema_conformant"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "Retrieve complete table and field metadata for database ID 1.",
+        "task_zh": "获取数据库 ID 1 的完整表和字段元数据。",
+        "synthetic_slots": [
+          {
+            "field": "database",
+            "value": "1",
+            "basis": "schema_conformant"
+          }
+        ]
+      }
+    }
+  }
+}

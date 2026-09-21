@@ -1,0 +1,41 @@
+{
+  "schema_version": "skillbench_ncf.operation_pair_audit_v1.config.v1",
+  "sequential_title_pattern": "^(step|phase|tier|part)\\s*\\d+",
+  "workflow_stage_title_prefixes": [
+    "analyze",
+    "apply",
+    "check",
+    "execute",
+    "generate",
+    "identify",
+    "initialize",
+    "locate",
+    "make",
+    "navigate",
+    "parse",
+    "prioritize",
+    "rank",
+    "track",
+    "validate",
+    "verify"
+  ],
+  "workflow_path_fragments": [
+    "workflow",
+    "procedure",
+    "core logic"
+  ],
+  "title_stopwords": [
+    "a",
+    "all",
+    "an",
+    "and",
+    "for",
+    "from",
+    "in",
+    "of",
+    "or",
+    "the",
+    "to",
+    "with"
+  ]
+}

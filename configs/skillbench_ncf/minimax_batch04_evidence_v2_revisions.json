@@ -1,0 +1,41 @@
+{
+  "schema_version": "skillbench_ncf.minimax_batch04_evidence_v2_revisions.v1",
+  "manual_review_notes": {
+    "launch-darkly-automation": "Both judges missed that DELETE_TRIGGER_WORKFLOW requires a feature flag key in addition to project, environment, and trigger IDs.",
+    "neon-automation": "Both judges accepted implicit project/branch names and omitted the database name required by RETRIEVE_BRANCH_DATABASE_DETAILS."
+  },
+  "revisions": {
+    "launch-darkly-automation": {
+      "reason": "Supply every required identifier for the destructive trigger deletion operation.",
+      "dev": {
+        "task_en": "Permanently delete trigger ID abc-123 from environment key production for feature flag key checkout-redesign in project key my-project.",
+        "task_zh": "从项目键 my-project 中功能标志键 checkout-redesign 的环境键 production 里，永久删除触发器 ID abc-123。",
+        "synthetic_slots": [
+          {"field": "project key", "value": "my-project", "basis": "explicit_example"},
+          {"field": "feature flag key", "value": "checkout-redesign", "basis": "schema_conformant"},
+          {"field": "environment key", "value": "production", "basis": "schema_conformant"},
+          {"field": "id", "value": "abc-123", "basis": "schema_conformant"}
+        ]
+      }
+    },
+    "neon-automation": {
+      "reason": "Make the project, branch, and database identifiers explicit as required by the documented schemas.",
+      "train": {
+        "task_en": "List all branches for Neon project ID proj_abc123 to see its available development stages.",
+        "task_zh": "列出 Neon 项目 ID proj_abc123 的所有分支，以查看其可用的开发阶段。",
+        "synthetic_slots": [
+          {"field": "project id", "value": "proj_abc123", "basis": "schema_conformant"}
+        ]
+      },
+      "dev": {
+        "task_en": "For Neon project ID proj_abc123 and branch ID br_main, retrieve details for database app_db and list every available role on that branch.",
+        "task_zh": "对于 Neon 项目 ID proj_abc123 和分支 ID br_main，获取数据库 app_db 的详细信息，并列出该分支上的所有可用角色。",
+        "synthetic_slots": [
+          {"field": "project id", "value": "proj_abc123", "basis": "schema_conformant"},
+          {"field": "branch id", "value": "br_main", "basis": "schema_conformant"},
+          {"field": "database name", "value": "app_db", "basis": "schema_conformant"}
+        ]
+      }
+    }
+  }
+}

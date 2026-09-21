@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# OS
+.DS_Store
+.syncthing.*.tmp
+
+# Local data — fetched by scripts/setup.sh / scripts/download_data.sh, not tracked
+data/*
+!data/README.md
+!data/.gitkeep
+!data/skilldag_graphs/
+data/skilldag_graphs/*
+!data/skilldag_graphs/README.md
+
+# Local tool runtimes and caches
+runtime/
+
+# Local run outputs (regenerable)
+results/
+logs/
+*.log
+
+# Editor
+.vscode/
+.idea/
+.env
+.sync-conflict-*
+.syncthing*.tmp

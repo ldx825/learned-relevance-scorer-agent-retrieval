@@ -1,0 +1,83 @@
+services:
+  main:
+    build:
+      context: ${CONTEXT_DIR:-.}
+      network: ${SKILLDAG_BUILD_NETWORK:-default}
+      args:
+        # Harbor builds run inside Docker's rootless network namespace. Forward
+        # the host's standard proxy settings when present so apt/pip/curl in
+        # benchmark Dockerfiles work on proxy-restricted machines. Empty
+        # defaults preserve the original behavior on direct-connect hosts.
+        HTTP_PROXY: ${HTTP_PROXY:-}
+        HTTPS_PROXY: ${HTTPS_PROXY:-}
+        NO_PROXY: ${NO_PROXY:-}
+        http_proxy: ${HTTP_PROXY:-}
+        https_proxy: ${HTTPS_PROXY:-}
+        no_proxy: ${NO_PROXY:-}
+    image: ${MAIN_IMAGE_NAME:-hb-skilldag-task}
+    network_mode: ${SKILLDAG_NETWORK_MODE:-${NETWORK_MODE:-bridge}}
+    command:
+      - /bin/bash
+      - -lc
+      - |
+        set -e
+        # Keep native agent skill roots empty; SkillDAG skills are exposed only
+        # through the `skilldag` CLI and its mounted runtime paths.
+        rm -rf \
+          /root/.claude/skills \
+          /root/.codex/skills \
+          /root/.opencode/skill \
+          /root/.opencode/skills \
+          /root/.goose/skills \
+          /root/.factory/skills \
+          /root/.agents/skills \
+          /root/.gemini/skills \
+          /root/.github/skills \
+          /root/.terminus/skills \
+          /root/.cursor/skills \
+          /root/skills \
+          /root/environment/skills
+        find /root/verifier-skills -name SKILL.md -type f -delete 2>/dev/null || true
+        exec sleep infinity
+    environment:
+      - TEST_DIR=${TEST_DIR}
+      - SKILLDAG_SKILLS_DIR=/var/lib/skilldag/bodies
+      - SKILLDAG_GRAPH_PATH=/var/lib/skilldag/runtime/skillgraph.json
+      - SKILLDAG_EMBEDDING_MODEL
+      - SKILLDAG_EMBEDDING_DIM
+      - SKILLDAG_RETRIEVAL_TOP_N
+      - SKILLDAG_METHOD
+      - SKILLDAG_SCALE
+      - SKILLDAG_NCF_MODEL
+      - SKILLDAG_NCF_CANDIDATE_K
+      - SKILLDAG_NCF_EXPECTED_POOL_SIZE
+      - SKILLDAG_NCF_AUDIT_LOG
+      - SKILLDAG_EMBEDDING_API_KEY
+      - SKILLDAG_EMBEDDING_BASE
+      - OPENAI_API_KEY
+      - OPENAI_BASE_URL
+      # Verifiers and agents may install task-local dependencies at runtime.
+      # Forward standard proxy settings without storing their values here.
+      - HTTP_PROXY
+      - HTTPS_PROXY
+      - NO_PROXY
+      # Some Debian/Ubuntu tooling (notably apt) only honors lowercase proxy
+      # variables. Derive both forms from the standard host settings so a
+      # caller does not need to export duplicate variables manually.
+      - http_proxy=${HTTP_PROXY:-}
+      - https_proxy=${HTTPS_PROXY:-}
+      - no_proxy=${NO_PROXY:-}
+    volumes:
+      - ${HOST_VERIFIER_LOGS_PATH}:${ENV_VERIFIER_LOGS_PATH}
+      - ${HOST_AGENT_LOGS_PATH}:${ENV_AGENT_LOGS_PATH}
+      - ${SKILLDAG_HOST_RUNTIME:-./skilldag}:/var/lib/skilldag/runtime
+      - ${SKILLDAG_HOST_SKILLS:-../../../../data/skillsets/skills_200}:/var/lib/skilldag/bodies:ro
+      - ${SKILLDAG_PACKAGE_ROOT:-../../../../../SkillDAG}:/opt/skilldag/package:ro
+    deploy:
+      resources:
+        limits:
+          # Rootless Docker may run without delegated CPU CFS controllers.
+          # Keep Harbor's task limit by default, while allowing an explicit
+          # zero override (no quota) on such hosts.
+          cpus: ${SKILLDAG_DOCKER_CPUS:-${CPUS:-2}}
+          memory: ${MEMORY:-4g}

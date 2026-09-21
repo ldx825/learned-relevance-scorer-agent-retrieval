@@ -1,0 +1,22 @@
+{
+  "description": "SkillsBench scale=1000 results from paper Table 1",
+  "scale": 1000,
+  "num_tasks": 87,
+  "n_attempts": 2,
+  "excluded_task": "mhc-layer-impl",
+  "results": {
+    "codex": {
+      "model": "openai/gpt-5.2-codex",
+      "R_percent": 36.8,
+      "pass": null,
+      "fail": null
+    },
+    "minimax": {
+      "model": "minimax/m2.7",
+      "R_percent": 38.0,
+      "pass": null,
+      "fail": null
+    }
+  },
+  "paper_source": "Table 1, SkillDAG paper (arXiv)"
+}

@@ -1,0 +1,19 @@
+{
+  "description": "Cross-scale retrieval metrics for paper figure",
+  "note": "Run each scale (200/500/1000/2000) with full benchmark, then replay queries via scripts/replay_queries.py --mode cross-scale",
+  "scales": [200, 500, 1000, 2000],
+  "metrics": {
+    "GoS": {
+      "Ret@5": [62.1, 73.6, 65.5, 60.9],
+      "Ret@1": [null, null, null, null],
+      "MRR": [null, null, null, null]
+    },
+    "SkillDAG": {
+      "Ret@5": [78.2, 78.2, 78.2, 74.7],
+      "Ret@1": [null, null, null, null],
+      "MRR": [null, null, null, null]
+    }
+  },
+  "note_Ret@1_MRR": "Run scripts/replay_queries.py --mode cross-scale to compute Ret@1 and MRR from raw trial logs; these vary by run",
+  "paper_source": "Paper §Cross-Scale Retrieval"
+}

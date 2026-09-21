@@ -1,0 +1,22 @@
+{
+  "schema_version": "skillbench_ncf.minimax_pilot10_revisions_v1",
+  "revisions": {
+    "apollo-automation": {
+      "dev": {
+        "task_en": "Use Apollo to enrich the contact profile for Tim Zheng at Apollo.io.",
+        "task_zh": "使用 Apollo 补充 Tim Zheng 在 Apollo.io 的联系人资料。"
+      },
+      "reason": "Expand the original seven-word request without changing its documented enrichment intent."
+    },
+    "attio-automation": {
+      "train": {
+        "task_en": "Search the Attio workspace for any person whose name matches Alan Mathis.",
+        "task_zh": "在 Attio 工作区中搜索姓名匹配 Alan Mathis 的人员。"
+      },
+      "reason": "Expand the original seven-word request without changing its documented fuzzy-search intent."
+    }
+  },
+  "excluded_skills": {
+    "braintree-automation": "Source identity/tool mismatch: the Braintree skill documents Stripe-routed tools, so rewriting text cannot remove the supervision ambiguity."
+  }
+}

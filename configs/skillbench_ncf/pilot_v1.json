@@ -1,0 +1,52 @@
+{
+  "schema_version": "skillbench_ncf.pilot_v1.config.v1",
+  "seed": "skillbench-ncf-pilot-v1",
+  "sample_allocations": {
+    "train": {
+      "automation": 20,
+      "benchmark_environment": 8,
+      "other": 12
+    },
+    "dev": {
+      "automation": 10,
+      "benchmark_environment": 4,
+      "other": 6
+    }
+  },
+  "minimum_multi_family_samples": {
+    "train": {
+      "automation": 4,
+      "benchmark_environment": 1,
+      "other": 1
+    },
+    "dev": {
+      "automation": 2,
+      "benchmark_environment": 0,
+      "other": 0
+    }
+  },
+  "candidate_policy": {
+    "maximum_support_candidates": 3,
+    "maximum_hard_candidates": 5,
+    "easy_negative_count": 3,
+    "support_edge_types": [
+      "depends_on",
+      "composes_with"
+    ],
+    "hard_edge_types": [
+      "similar_to",
+      "specializes"
+    ]
+  },
+  "task_seed_policy": {
+    "train_variants_per_skill": [
+      "train_main",
+      "dev_in_family"
+    ],
+    "cross_family_variants_per_skill": [
+      "dev_cross_family"
+    ],
+    "surface_form_status": "not_training_ready",
+    "reason": "These deterministic task/query seeds exist to audit semantics and provenance before any LLM naturalization or Judge labeling."
+  }
+}

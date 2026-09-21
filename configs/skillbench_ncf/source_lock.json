@@ -1,0 +1,41 @@
+{
+  "schema_version": "skillbench_ncf.source_lock.v1",
+  "scale": 1000,
+  "huggingface_dataset": "Eric068/SkillDAG",
+  "huggingface_revision": "46fbb5121d06ab5c6c3e1713f47ac62c8e57b75a",
+  "sources": {
+    "skill_archive": {
+      "logical_name": "skills_1000.tar.gz",
+      "relative_hub_path": "data/skillsets_archives/skills_1000.tar.gz",
+      "sha256": "48cf777043cea7547afa1f0082337428add0a4543c73c56a863c03dc1908faba"
+    },
+    "cold_graph": {
+      "logical_name": "skillgraph_1000.json",
+      "relative_hub_path": "data/skilldag_graphs/skillgraph_1000.json",
+      "sha256": "92bf8e8fa6f1e45efe90e1f5f303dca294efe5d4c7986b5dfc71a66825183651"
+    },
+    "embedding_cache": {
+      "logical_name": "skillgraph_1000.embeddings.json",
+      "relative_hub_path": "data/skilldag_graphs/skillgraph_1000.embeddings.json",
+      "sha256": "7382a7e3e2613dfd3f8915552243b9cb6ff6ad9c6c473e239693cbec99a8e02f"
+    }
+  },
+  "expected": {
+    "skill_count": 1000,
+    "skill_md_tree_sha256": "36d9a8774a160f18d2287329c3815ce2f7af547d23bfbb525ea83e1f2d2a8a42",
+    "skill_asset_tree_sha256": "b5a98b01f8d28c1aeabb628ca4b8eef884f8f230413b14647c86f1291e9fb1ba",
+    "graph_node_count": 1000,
+    "graph_edge_count": 2360,
+    "graph_history_count": 0,
+    "embedding_count": 1000,
+    "embedding_dimension": 3072,
+    "embedding_model": "text-embedding-3-large",
+    "edge_origin": "cold_start",
+    "edge_types": [
+      "composes_with",
+      "depends_on",
+      "similar_to",
+      "specializes"
+    ]
+  }
+}

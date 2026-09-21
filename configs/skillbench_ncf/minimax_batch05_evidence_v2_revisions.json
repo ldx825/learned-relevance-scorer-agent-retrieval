@@ -1,0 +1,37 @@
+{
+  "schema_version": "skillbench_ncf.minimax_batch05_evidence_v2_revisions.v1",
+  "manual_review_notes": {
+    "replicate-automation": "The judges treated an owner as a complete model identifier and inferred a prediction-to-file association not present in evidence.",
+    "share-point-automation": "The judges omitted the required site/list IDs and prior delta token for a since-last-sync request."
+  },
+  "revisions": {
+    "replicate-automation": {
+      "reason": "Provide owner and model name separately and remove the unsupported prediction-file association.",
+      "train": {
+        "task_en": "List all available versions for model name stable-diffusion owned by stability-ai so I can select one for deployment.",
+        "task_zh": "列出所有者 stability-ai 的模型 stable-diffusion 的全部可用版本，以便选择一个用于部署。",
+        "synthetic_slots": [
+          {"field": "model owner", "value": "stability-ai", "basis": "schema_conformant"},
+          {"field": "model name", "value": "stable-diffusion", "basis": "schema_conformant"}
+        ]
+      },
+      "dev": {
+        "task_en": "List my Replicate prediction history, then separately list my uploaded files with the newest files first.",
+        "task_zh": "列出我的 Replicate 预测历史，然后单独列出已上传文件，并将最新文件排在最前。",
+        "synthetic_slots": []
+      }
+    },
+    "share-point-automation": {
+      "reason": "Supply every required identifier and the prior token needed for incremental changes.",
+      "dev": {
+        "task_en": "For SharePoint site ID site_abc and list ID list_marketing, return all changes since delta token delta_2026_07_29.",
+        "task_zh": "对于 SharePoint 站点 ID site_abc 和列表 ID list_marketing，返回自增量令牌 delta_2026_07_29 以来的全部变更。",
+        "synthetic_slots": [
+          {"field": "site id", "value": "site_abc", "basis": "schema_conformant"},
+          {"field": "list id", "value": "list_marketing", "basis": "schema_conformant"},
+          {"field": "token", "value": "delta_2026_07_29", "basis": "schema_conformant"}
+        ]
+      }
+    }
+  }
+}

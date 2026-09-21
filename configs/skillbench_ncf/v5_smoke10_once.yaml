@@ -1,0 +1,57 @@
+job_name: ${SKILLBENCH_V5_JOB_NAME}
+jobs_dir: ${SKILLBENCH_V5_JOBS_DIR}
+n_attempts: 1
+timeout_multiplier: 1.0
+debug: false
+
+orchestrator:
+  type: local
+  n_concurrent_trials: ${SKILLBENCH_V5_WORKERS}
+  quiet: false
+  retry:
+    # The smoke run is deliberately single-shot to avoid accidental API spend.
+    max_retries: 0
+    include_exceptions: null
+    exclude_exceptions:
+      - VerifierOutputParseError
+      - RewardFileNotFoundError
+      - AgentTimeoutError
+      - RewardFileEmptyError
+      - VerifierTimeoutError
+    wait_multiplier: 1.0
+    min_wait_sec: 1.0
+    max_wait_sec: 60.0
+  kwargs: {}
+
+environment:
+  type: docker
+  import_path: null
+  force_build: false
+  delete: true
+  override_cpus: null
+  override_memory_mb: null
+  override_storage_mb: null
+  override_gpus: null
+  kwargs: {}
+
+verifier:
+  override_timeout_sec: null
+  max_timeout_sec: null
+  disable: false
+
+metrics: []
+
+agents:
+  - name: terminus-2
+    import_path: null
+    model_name: openai/MiniMax-M2.7
+    override_timeout_sec: null
+    override_setup_timeout_sec: null
+    max_timeout_sec: null
+    kwargs:
+      api_base: https://yunwu.ai/v1
+      record_terminal_session: false
+
+datasets:
+  - task_names: null
+    path: ${SKILLBENCH_V5_TASKS_DIR}

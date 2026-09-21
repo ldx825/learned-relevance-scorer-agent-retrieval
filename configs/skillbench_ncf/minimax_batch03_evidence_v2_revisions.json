@@ -1,0 +1,137 @@
+{
+  "schema_version": "skillbench_ncf.minimax_batch03_evidence_v2_revisions.v1",
+  "manual_review_notes": {
+    "googledocs-automation": "The Judge accepted a document title even though UPDATE_DOCUMENT_MARKDOWN requires a document ID.",
+    "googleslides-automation": "The Judge treated slide number 5 as a pageObjectId; the API requires a concrete page/slide object ID.",
+    "googletasks-automation": "The Judge accepted human-readable list names where both operations require task-list IDs.",
+    "gumroad-automation": "The Grounding Judge correctly rejected domain-level email filtering because GET_SALES only documents an exact customer email filter.",
+    "heygen-automation": "The Judge inferred multilingual support from generic customization options; the local evidence does not expose a language-support field."
+  },
+  "revisions": {
+    "googledocs-automation": {
+      "reason": "Replace the unsupported title lookup with the document ID required by the operation schema.",
+      "train": {
+        "task_en": "Replace the entire content of Google Doc ID doc_q4_marketing_2026 with new Markdown containing headings, bullet points, and formatted paragraphs.",
+        "task_zh": "使用包含标题、项目符号和格式化段落的新 Markdown，替换文档 ID 为 doc_q4_marketing_2026 的 Google 文档全部内容。",
+        "synthetic_slots": [
+          {
+            "field": "id",
+            "value": "doc_q4_marketing_2026",
+            "basis": "schema_conformant"
+          }
+        ]
+      }
+    },
+    "googleslides-automation": {
+      "reason": "Use the required pageObjectId instead of treating an ordinal slide number as an object ID.",
+      "dev": {
+        "task_en": "Generate a PNG thumbnail with 800-pixel width for page object ID slide_obj_5 in presentation ID pres_67890.",
+        "task_zh": "为演示文稿 ID pres_67890 中页面对象 ID 为 slide_obj_5 的幻灯片生成宽度为 800 像素的 PNG 缩略图。",
+        "synthetic_slots": [
+          {
+            "field": "presentationId",
+            "value": "pres_67890",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "pageObjectId",
+            "value": "slide_obj_5",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "thumbnailProperties.mimeType",
+            "value": "PNG",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "thumbnailProperties.thumbnailSize",
+            "value": "800-pixel width",
+            "basis": "schema_conformant"
+          }
+        ]
+      }
+    },
+    "googletasks-automation": {
+      "reason": "Replace task-list names with the task-list IDs required by both operations.",
+      "train": {
+        "task_en": "In task-list ID list_work_2026, mark task ID task_abc123 as completed and set its note to 'Finished early - ready for review'.",
+        "task_zh": "在任务列表 ID list_work_2026 中，将任务 ID task_abc123 标记为已完成，并将备注设置为“提前完成，已准备好审核”。",
+        "synthetic_slots": [
+          {
+            "field": "tasklist id",
+            "value": "list_work_2026",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "task id",
+            "value": "task_abc123",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "status",
+            "value": "completed",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "notes",
+            "value": "Finished early - ready for review",
+            "basis": "schema_conformant"
+          }
+        ]
+      },
+      "dev": {
+        "task_en": "Delete task ID task_def456 from task-list ID list_shopping_2026, then permanently clear all completed tasks from that same list.",
+        "task_zh": "从任务列表 ID list_shopping_2026 中删除任务 ID task_def456，然后永久清除该列表中的全部已完成任务。",
+        "synthetic_slots": [
+          {
+            "field": "tasklist id",
+            "value": "list_shopping_2026",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "task id",
+            "value": "task_def456",
+            "basis": "schema_conformant"
+          }
+        ]
+      }
+    },
+    "gumroad-automation": {
+      "reason": "Replace unsupported email-domain filtering with the exact customer-email filter documented by GET_SALES.",
+      "train": {
+        "task_en": "Show all Gumroad sales during January 2025 for product ID prod_ABC123 made by customer alice@company.com.",
+        "task_zh": "显示 2025 年 1 月期间产品 ID prod_ABC123 由客户 alice@company.com 产生的全部 Gumroad 销售记录。",
+        "synthetic_slots": [
+          {
+            "field": "after",
+            "value": "2025-01-01T00:00:00Z",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "before",
+            "value": "2025-02-01T00:00:00Z",
+            "basis": "schema_conformant"
+          },
+          {
+            "field": "product id",
+            "value": "prod_ABC123",
+            "basis": "explicit_example"
+          },
+          {
+            "field": "email",
+            "value": "alice@company.com",
+            "basis": "schema_conformant"
+          }
+        ]
+      }
+    },
+    "heygen-automation": {
+      "reason": "Remove unsupported multilingual filtering and request only template fields documented by the local evidence.",
+      "train": {
+        "task_en": "List the available HeyGen avatar templates with their template IDs, names, preview images, and customization options.",
+        "task_zh": "列出可用的 HeyGen 头像模板及其模板 ID、名称、预览图像和自定义选项。",
+        "synthetic_slots": []
+      }
+    }
+  }
+}

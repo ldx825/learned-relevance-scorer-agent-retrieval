@@ -1,0 +1,144 @@
+{
+  "schema_version": "agent_skill_evolution.ncf_ablation_lock.v1",
+  "name": "alfworld_skill_and_memory_ncf_ablation_v1",
+  "created_from_git_commit": "aec84b95f657592502b7b05b796b4284814053f6",
+  "global_contract": {
+    "training_device": "cpu",
+    "embedding_parameters_frozen": true,
+    "official_eval_data_used_for_training": false,
+    "primary_seed": 2026,
+    "formal_seeds": [2026, 2027, 2028],
+    "report_units": "percentage points"
+  },
+  "skill_alfworld": {
+    "release_name": "skilldag_ncf_v3_phase_content_neumf_v1",
+    "arrays": {
+      "path": "data/alfworld_task_skill/task_skill_v3_phase/model_data/content_neumf_v1/arrays.npz",
+      "sha256": "6f42f1bfced5a7ea027db50ce189bcc3861c49bafa53a257379e953eb8ca16b2"
+    },
+    "graph": {
+      "path": ".runtime/skilldag/data/skilldag/skilldag_graphs/skillgraph_alfworld.json",
+      "sha256": "f81cd285b48e301bff2ffd5772228c67f94bc4c2de8d8e8ca55063fa0c9401a4"
+    },
+    "graph_embeddings": {
+      "path": ".runtime/skilldag/data/skilldag/skilldag_graphs/skillgraph_alfworld.embeddings.json",
+      "sha256": "960f06aa68cc3909b6ee16e000a884e6932b038fe68e90b463ee8fe2c14577d5"
+    },
+    "evaluation_embeddings": {
+      "path": ".runtime/skilldag_ncf_v3/cache/eval_phase_embeddings_valid_seen.json",
+      "sha256": "99afa35c8899947f64b936fc392a8a478b28233eb59a0d529273f1d08449f184"
+    },
+    "frozen_checkpoints": {
+      "gmf": {
+        "path": ".runtime/skilldag_ncf_v3/models/content_neumf_v1/gmf.pt",
+        "sha256": "3a4809eb7ddc7f63a6b164398e1858318fb2b8b5711c7423dd2b9d9fa8254d60"
+      },
+      "mlp": {
+        "path": ".runtime/skilldag_ncf_v3/models/content_neumf_v1/mlp.pt",
+        "sha256": "62058cfc828a00e42528b652a98ee67b125cd73d1a3b07485ca39e17b96418b0"
+      },
+      "neumf": {
+        "path": ".runtime/skilldag_ncf_v3/models/content_neumf_v1/neumf.pt",
+        "sha256": "6cf5acc36f394f5d4327a59e10fd3e70846538563c92c79cbf8bdbf98a849674"
+      }
+    },
+    "calibration": {
+      "path": ".runtime/skilldag_ncf_v3/models/content_neumf_v1/online_calibration.json",
+      "sha256": "ea9614742f79feb5ded8f6f8cd56291d77d24486abbf686015892809aeb4110c"
+    },
+    "reference_report": {
+      "path": ".runtime/skilldag_ncf_v3/reports/phase_retrieval_comparison.json",
+      "sha256": "36887fb659bd62a3f61cd0aa542a1c3c59e99baf6468c66daf4800437ac2dbff"
+    },
+    "training_contract": {
+      "embedding_dim": 3072,
+      "train_pairs": 39769,
+      "pairwise_preferences": 180054,
+      "batch_size": 512,
+      "pretrain_epochs": 20,
+      "finetune_epochs": 20,
+      "patience": 5,
+      "pairwise_lambda": 0.2,
+      "gmf_latent_dim": 16,
+      "mlp_layers": [64, 32, 16]
+    },
+    "offline_eval_contract": {
+      "query_count": 501,
+      "candidate_pool": 37,
+      "final_k": 5,
+      "gold": "fixed semantic skill families",
+      "local_cosine_ret1": 0.5988023952095808,
+      "local_cosine_mrr": 0.7108449767132398,
+      "deployed_v3_ret1": 0.8602794411177644,
+      "deployed_v3_mrr": 0.9249833666001331
+    }
+  },
+  "memory_alfworld": {
+    "release_name": "memp_query_only_neumf_v17_balanced_dual_coverage",
+    "arrays": {
+      "path": ".runtime/memp_ncf/model_data/query_only_neumf_v17_balanced_dual_coverage/arrays.npz",
+      "sha256": "ab14a4f71a46ffeee5dc99186302668a527ef353720b3d20a926d1977fae7dc4"
+    },
+    "metadata": {
+      "path": ".runtime/memp_ncf/model_data/query_only_neumf_v17_balanced_dual_coverage/metadata.json",
+      "sha256": "405ba2ede88459c51fcc4bb0a3742121ac8075cf59e8740202e1e10a51fba1c0"
+    },
+    "query_views": {
+      "path": ".runtime/memp_ncf/query_views_v14/slot_paraphrases/query_views.jsonl",
+      "sha256": "f11595f46aec7aa65e946412c2d059462e372ea75004cca595c35fe4e3dc0dd2"
+    },
+    "memory_bank": {
+      "path": "data/memp_ncf/alfworld_script_train_v1/memories.jsonl",
+      "sha256": "83acf8f7402daed6a1328a21c53808679583944f5b5e5c2db9f4d97dcd4ed81c"
+    },
+    "frozen_checkpoints": {
+      "gmf": {
+        "path": ".runtime/memp_ncf/models/query_only_neumf_v17_balanced_dual_coverage/gmf.pt",
+        "sha256": "c9d272ed6430f73eb11355a3840d40f806e58dffc20d29940007e64c156fe77e"
+      },
+      "mlp": {
+        "path": ".runtime/memp_ncf/models/query_only_neumf_v17_balanced_dual_coverage/mlp.pt",
+        "sha256": "abb60040019fd788169954e8753837ff7e18b09970f13faa40dd6e1ca9a5c38b"
+      },
+      "neumf": {
+        "path": ".runtime/memp_ncf/models/query_only_neumf_v17_balanced_dual_coverage/neumf.pt",
+        "sha256": "453bb38bc1497038a0e51810eb259a554a83eefb2a6fbb6a9e250a01ed4f4d4d"
+      }
+    },
+    "reference_report": {
+      "path": ".runtime/memp_ncf/audits/v17_full_bank_retrieval_table/report.json",
+      "sha256": "f30e44e2b156475ac1ae2df94d30d27d11ce90a4312fc3440aebd6cd26a534be"
+    },
+    "training_contract": {
+      "embedding_dim": 1536,
+      "train_queries": 13608,
+      "train_pairs": 198696,
+      "model_dev_pairs": 8064,
+      "pairwise_preferences": 584136,
+      "batch_size": 512,
+      "pretrain_epochs": 20,
+      "finetune_epochs": 20,
+      "patience": 5,
+      "pairwise_lambda": 0.2,
+      "gmf_latent_dim": 16,
+      "mlp_layers": [64, 32, 16]
+    },
+    "offline_eval_contract": {
+      "query_count": 336,
+      "grade2_eligible_queries": 279,
+      "candidate_pool": 300,
+      "final_k": 10,
+      "gold": "frozen train-derived 2/1/0 structural relevance",
+      "cosine_ret1": 0.7383512544802867,
+      "cosine_mrr": 0.8298216419184161,
+      "cosine_ndcg10": 0.7181186545218953,
+      "pure_neumf_ret1": 0.910394265232975,
+      "pure_neumf_mrr": 0.9382317801672639,
+      "pure_neumf_ndcg10": 0.8444959212576054,
+      "cascade_candidate_c": 50,
+      "cascade_ret1": 0.9605734767025089,
+      "cascade_mrr": 0.9778972520908004,
+      "cascade_ndcg10": 0.946770021441357
+    }
+  }
+}

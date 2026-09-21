@@ -1,0 +1,63 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "skilldag-ncf"
+version = "0.1.0"
+description = "NCF-enhanced SkillDAG experiments for task-skill retrieval"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Tong Bai" },
+    { name = "Pengfei Zhou" },
+    { name = "Zhenglin Wan" },
+]
+keywords = ["agent", "skill-retrieval", "skill-graph", "llm", "agentic"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = []
+
+[project.optional-dependencies]
+repro = [
+    "huggingface_hub[cli]>=0.23",
+    "litellm>=1.0",
+    "PyYAML>=6.0",
+    "retry>=0.9.2",
+]
+alfworld = [
+    "alfworld",
+    "litellm>=1.0",
+    "PyYAML>=6.0",
+    "retry>=0.9.2",
+]
+dev = ["pytest>=7.0", "ruff>=0.1"]
+ncf = ["numpy>=1.24", "torch>=2.2,<3.0"]
+all = [
+    "huggingface_hub[cli]>=0.23",
+    "alfworld",
+    "litellm>=1.0",
+    "PyYAML>=6.0",
+    "retry>=0.9.2",
+    "pytest>=7.0",
+    "ruff>=0.1",
+    "numpy>=1.24",
+    "torch>=2.2,<3.0",
+]
+
+[project.scripts]
+skilldag = "skilldag.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

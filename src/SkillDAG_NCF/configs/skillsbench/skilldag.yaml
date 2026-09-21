@@ -1,0 +1,63 @@
+# SkillDAG arm — SkillsBench (Harbor framework config), gpt-5.2-codex via OpenAI direct.
+#
+# Paper-aligned Harbor config for generated SkillDAG SkillsBench tasks,
+# parameterized via envsubst by scripts/run_skillsbench.sh.
+# Required env vars are documented in .env.example.
+
+job_name: ${SKILLDAG_JOB_NAME}
+jobs_dir: ${SKILLDAG_JOBS_DIR}
+n_attempts: 2
+timeout_multiplier: 1.0
+debug: false
+
+orchestrator:
+  type: local
+  n_concurrent_trials: ${SKILLDAG_WORKERS}
+  quiet: false
+  retry:
+    max_retries: 3
+    include_exceptions: null
+    exclude_exceptions:
+      - VerifierTimeoutError
+      - BadRequestError
+      - RateLimitError
+      - AgentTimeoutError
+    wait_multiplier: 1.0
+    min_wait_sec: 1.0
+    max_wait_sec: 60.0
+  kwargs: {}
+
+environment:
+  type: docker
+  import_path: null
+  force_build: false
+  delete: true
+  override_cpus: null
+  override_memory_mb: null
+  override_storage_mb: null
+  override_gpus: null
+  kwargs:
+    keep_containers: false
+
+verifier:
+  override_timeout_sec: null
+  max_timeout_sec: null
+  disable: false
+
+metrics: []
+
+agents:
+  - name: codex
+    import_path: null
+    model_name: ${SKILLDAG_CODEX_MODEL}
+    override_timeout_sec: null
+    override_setup_timeout_sec: 1800
+    max_timeout_sec: null
+    kwargs:
+      reasoning_effort: ${SKILLDAG_CODEX_REASONING_EFFORT}
+
+datasets:
+  - task_names: null
+    exclude_task_names:
+      - mhc-layer-impl       # excluded in paper §4.1
+    path: ${SKILLDAG_TASKS_DIR}

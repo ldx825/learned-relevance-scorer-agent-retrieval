@@ -1,0 +1,9 @@
+# Minimal environment used by the official TravelPlanner two-stage runner.
+# Python is pinned separately to 3.10 by the environment setup command.
+langchain==0.1.4
+langchain-community==0.0.16
+openai==0.27.2
+tiktoken==0.4.0
+numpy==1.26.4
+python-dotenv==1.0.1
+func_timeout==4.3.5

@@ -1,0 +1,92 @@
+{
+  "protocol_version": "memp-travelplanner-repro-v1",
+  "upstreams": {
+    "memp_repository": "https://github.com/zjunlp/MemP.git",
+    "memp_commit": "3066a1b280a39c7433ae37d9a745861903a5d3c4",
+    "travelplanner_repository": "https://github.com/OSU-NLP-Group/TravelPlanner.git",
+    "travelplanner_commit": "e52c87f4ac348a3410c46dc3553c519db5ec5e23"
+  },
+  "paths": {
+    "travelplanner_root": "references/TravelPlanner",
+    "database_source": ".runtime/memp/travelplanner/official_database/database",
+    "database_archive_source": "TravelPlanner README Google Drive file 1pF1Sw6pBmq2sFkJvm-LzJOqrmfWoQgxE",
+    "database_archive_sha256": "de345b0c243cd8c85355a264c5124db5db275327d2a38fa8685c6e69fabb650b",
+    "structured_dataset_source": "https://huggingface.co/datasets/osunlp/TravelPlanner",
+    "structured_dataset_commit": "8736504ecfc31b7f8b7e40122873c337e83fff7c",
+    "structured_train_csv_sha256": "2c02c4a31bf08599ea84013565a05d9a1a0a1b0c7613ded0ca932fb964780da1",
+    "private_runtime": ".runtime/memp/travelplanner",
+    "python": ".envs/memp-travelplanner/bin/python"
+  },
+  "benchmark": {
+    "dataset": "osunlp/TravelPlanner",
+    "train_size": 45,
+    "validation_size": 180,
+    "test_size": 1000,
+    "primary_split": "test",
+    "test_submission_policy": "official leaderboard only"
+  },
+  "agent": {
+    "mode": "two-stage",
+    "backbone": "gpt-4o",
+    "temperature": 0,
+    "max_environment_steps": 30,
+    "max_tool_retries": 3,
+    "repeated_action_patience": 3,
+    "tool_call_max_tokens": 256,
+    "planner_max_tokens": 4096
+  },
+  "memory": {
+    "build_sources": "successful TravelPlanner train trajectories only",
+    "author_issue_filter": "per-query final_score > 0.8",
+    "author_issue_url": "https://github.com/zjunlp/MemP/issues/5#issuecomment-4163028315",
+    "reconstructed_final_score": "passed applicable CS+HC constraints / all applicable CS+HC constraints",
+    "reconstructed_formula_status": "auditable inference because the authors did not release their modified per-query evaluator",
+    "formats": [
+      "script",
+      "trajectory",
+      "proceduralization"
+    ],
+    "retrievers": [
+      "random",
+      "query_cosine",
+      "avefact_cosine",
+      "content_neumf",
+      "query_cosine_plus_content_neumf",
+      "avefact_cosine_plus_content_neumf"
+    ],
+    "retrieve_k": 10,
+    "retrieve_k_status": "MemP released code default; not explicitly reported in the paper table",
+    "ncf_candidate_c": 50,
+    "ncf_candidate_c_status": "planned controlled experiment value, not a MemP paper parameter"
+  },
+  "evaluation": {
+    "table_cs_metric": "Commonsense Constraint Micro Pass Rate",
+    "table_hc_metric": "Hard Constraint Micro Pass Rate",
+    "average_steps": "mean executed tool-agent rounds per task",
+    "official_test_denominators": {
+      "commonsense_micro": 8000,
+      "hard_micro": 2290
+    },
+    "official_validation_denominators": {
+      "commonsense_micro": 1440,
+      "hard_micro": 420
+    }
+  },
+  "fairness": {
+    "training_allowed_splits": [
+      "train"
+    ],
+    "selection_allowed_splits": [
+      "train"
+    ],
+    "forbidden_training_sources": [
+      "validation queries",
+      "validation plans",
+      "validation rewards",
+      "test queries",
+      "test plans",
+      "test rewards",
+      "official evaluator feedback from validation or test"
+    ]
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schema_version": "skillbench_ncf.family_clustering.v1",
+  "scale": 1000,
+  "merge_rules": {
+    "normalized_alias": true,
+    "graph_edge_types": [
+      "similar_to",
+      "specializes"
+    ],
+    "minimum_cosine": 0.88,
+    "maximum_allowed_family_size": 20
+  },
+  "split": {
+    "role": "cross_family_diagnostic",
+    "dev_fraction": 0.2,
+    "seed": "skillbench-ncf-family-split-v1",
+    "strata": [
+      "benchmark_environment",
+      "automation",
+      "other"
+    ],
+    "benchmark_environment_prefixes": [
+      "alfworld-",
+      "scienceworld-",
+      "webshop-"
+    ],
+    "final_training_policy": "After model design and hyperparameters are frozen without official-task feedback, the final NCF may be retrained on synthetic supervision from all 1000 skills. The official 87 tasks remain untouched."
+  },
+  "rationale": {
+    "minimum_cosine": "A source-only audit found that raw similar_to components contain a 608-skill generic automation giant component. A conservative 0.88 threshold leaves 64 high-confidence similar_to/specializes edges and source-only components no larger than 8 before alias merging.",
+    "family_split": "All members of a near-duplicate family stay in one split. Candidate retrieval still ranks against all 1000 skills."
+  }
+}

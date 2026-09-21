@@ -1,0 +1,9 @@
+{
+  "description": "316-query cold-vs-edited replay metrics from paper",
+  "num_queries": 316,
+  "cold_graph_mean_rank": 1.915,
+  "edited_graph_mean_rank": 1.984,
+  "note": "Rank = first position of ground-truth skill in retrieved top-5; lower is better",
+  "run_command": "python scripts/replay_queries.py --mode edit-effect --cold-graph <path> --edited-graph <path> --query-manifest <path>",
+  "paper_source": "Paper §316-Query Cold-vs-Edited"
+}

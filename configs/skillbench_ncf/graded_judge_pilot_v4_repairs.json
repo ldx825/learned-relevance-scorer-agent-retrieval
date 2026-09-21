@@ -1,0 +1,18 @@
+{
+  "schema_version": "skillbench_ncf.graded_judge_repairs.v1",
+  "policy": "Only deterministic schema recovery is allowed. Any missing, hallucinated-ID, or duplicate-ID judgment becomes uncertain and never receives an inferred numeric grade. Explicit aliases below are limited to unambiguous audited typos.",
+  "queries": {
+    "expanded::alfworld-object-state-modifier::capability": {
+      "skill_id_aliases": {
+        "scienceworld-heating-appliance-setup": "scienceworld-heating-apparatus-setup"
+      },
+      "reason": "The returned ID differs by one synonymous noun, the expected candidate is unique, and the returned evidence exactly describes that candidate."
+    },
+    "expanded::parallel-automation::public_suggested_prompt_3": {
+      "missing_as_uncertain": [
+        "webshop-search-constructor"
+      ],
+      "reason": "The model returned 19 of 20 candidates and omitted this exact ID; no relevance grade is inferred."
+    }
+  }
+}

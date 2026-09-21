@@ -1,0 +1,25 @@
+{
+  "description": "ALFWorld 3-phase train/test transfer results from paper",
+  "scales": {
+    "train": {
+      "num_tasks": 420,
+      "codex": {"R_percent": 92.3, "pass": 282, "fail": 138},
+      "minimax": {"R_percent": 67.1, "pass": 282, "fail": 138}
+    },
+    "test_initial": {
+      "num_tasks": 140,
+      "codex": {"R_percent": 90.7, "pass": null, "fail": null},
+      "minimax": {"R_percent": 65.0, "pass": null, "fail": null}
+    },
+    "test_edited": {
+      "num_tasks": 140,
+      "codex": {"R_percent": 93.6, "pass": null, "fail": null},
+      "minimax": {"R_percent": 67.1, "pass": null, "fail": null}
+    }
+  },
+  "initial_graph_edges": 122,
+  "initial_online_edits": 0,
+  "expected_online_edits_after_train": "non-deterministic (7 in canonical run)",
+  "frozen_mode_test_phases": true,
+  "paper_source": "Paper §ALFWorld Train/Test Transfer"
+}

@@ -1,0 +1,37 @@
+experiment:
+  name: gpt4o_memp_script_query_cosine_rerun
+  source_commit: 3066a1b280a39c7433ae37d9a745861903a5d3c4
+  protocol: faithful_reimplementation
+
+model:
+  name: gpt-4o
+  agent_temperature: 1.0
+  build_temperature: 0.2
+  retries: 10
+
+memory:
+  format: script
+  build_policy: direct
+  prompt_mode: alfworld-faithful
+  source_split: train_only_claimed_by_release
+  source_trajectories: 3119
+  bank_selection: first_300_release_order
+  memory_size: 300
+  key: source_task_query
+  embedding_model: text-embedding-3-small
+  retrieval: query_cosine_with_release_faiss_l2_threshold
+  faiss_squared_l2_threshold: 0.5
+  retrieve_num: 10
+  online_update: false
+
+evaluation:
+  environment: AlfredTWEnv
+  controller: oracle
+  few_shot: true
+  max_steps: 30
+  random_seed: 42
+  dev_split: eval_in_distribution
+  dev_games: 140
+  test_split: eval_out_of_distribution
+  test_games: 134
+  first_stage_limit: 10
